@@ -178,7 +178,7 @@ class TestHootel(object):
         account_button = WebDriverWait(self.browser, 5).until(ec.element_to_be_clickable((By.ID, "profile")))
         account_button.click()
 
-        account_former_lastname = WebDriverWait(self.browser, 5).until(ec.presence_of_element_located((By.ID, "firstname"))).text
+        account_former_lastname = WebDriverWait(self.browser, 5).until(ec.presence_of_element_located((By.XPATH, "//input[@id = 'firstname']"))).text
                                                                                                        
         edit_account_button = self.browser.find_element(By.XPATH, "//button[@name = 'submit']")
         edit_account_button.click()
@@ -189,7 +189,7 @@ class TestHootel(object):
         save_button = WebDriverWait(self.browser, 5).until(ec.element_to_be_clickable((By.ID, "submit")))
         save_button.click()
 
-        account_changed_lastname = WebDriverWait(self.browser, 5).until(ec.presence_of_element_located((By.ID, "firstname"))).text
+        account_changed_lastname = WebDriverWait(self.browser, 5).until(ec.presence_of_element_located((By.XPATH, "//input[@id = 'firstname']"))).text
 
         assert account_former_lastname != account_changed_lastname
 
