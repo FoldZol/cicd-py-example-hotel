@@ -102,6 +102,7 @@ class TestHootel(object):
         assert login_button.text == "Bejelentkezés"
 
     def test_user_booking_button(self):
+        # bejelentkezés
         menu_toggle = WebDriverWait(self.browser, 5).until(
             ec.element_to_be_clickable((By.XPATH, "//button[@class = 'navbar-toggler collapsed']")))
         menu_toggle.click()
@@ -117,6 +118,8 @@ class TestHootel(object):
 
         submit_button = self.browser.find_element(By.NAME, 'submit')
         submit_button.click()
+
+        # foglalások oldalra navigálás
         bookings_btn = WebDriverWait(self.browser, 5).until(
             ec.element_to_be_clickable((By.XPATH, "//a[@id = 'user-bookings']")))
         bookings_btn.click()
@@ -125,9 +128,11 @@ class TestHootel(object):
             ec.element_to_be_clickable((By.XPATH, "//button[@class = 'navbar-toggler']")))
         menu_toggle.click()
 
+        # oldal betöltésének ellenőrzése
         assert self.browser.current_url == "http://hotel-v3.progmasters.hu/bookings"
 
     def test_user_profile_button(self):
+        # bejelentkezés
         menu_toggle = WebDriverWait(self.browser, 5).until(
             ec.element_to_be_clickable((By.XPATH, "//button[@class = 'navbar-toggler collapsed']")))
         menu_toggle.click()
@@ -144,7 +149,49 @@ class TestHootel(object):
         submit_button = self.browser.find_element(By.NAME, 'submit')
         submit_button.click()
 
+        # felhasználói fiók oldalra való navigálás
         account_button = WebDriverWait(self.browser, 5).until(ec.element_to_be_clickable((By.ID, "profile")))
         account_button.click()
 
+        # oldal betöltésének ellenőrzése
         assert self.browser.current_url == "http://hotel-v3.progmasters.hu/account"
+
+    def test_editing_user_account(self):
+        # bejelentkezés
+        menu_toggle = WebDriverWait(self.browser, 5).until(
+            ec.element_to_be_clickable((By.XPATH, "//button[@class = 'navbar-toggler collapsed']")))
+        menu_toggle.click()
+        login_button = WebDriverWait(self.browser, 5).until(
+            ec.element_to_be_clickable((By.XPATH, '//a[@class="nav-link"]')))
+        login_button.click()
+
+        email_input = self.browser.find_element(By.ID, 'email')
+        email_input.send_keys('progmtest4@proton.me')
+
+        password_input = self.browser.find_element(By.ID, 'password')
+        password_input.send_keys('ProgMtest4')
+
+        submit_button = self.browser.find_element(By.NAME, 'submit')
+        submit_button.click()
+
+        # felhasználói fiók oldalra való navigálás
+        account_button = WebDriverWait(self.browser, 5).until(ec.element_to_be_clickable((By.ID, "profile")))
+        account_button.click()
+
+        account_former_lastname = WebDriverWait(self.browser, 5).until(ec.presence_of_element_located((By.ID, "firstname))).text
+                                                                                                       
+        edit_account_button = self.browser.find_element(By.XPATH, "//button[@name = 'submit']")
+        edit_account_button.click()
+
+        lastname_input = self.browser.find_element(By.ID, "firstname")
+        lastname_input.send_keys("ProgMtest4")
+
+        save_button = WebDriverWait(self.browser, 5).until(ec.element_to_be_clickable((By.ID, "submit")))
+        save_button.click()
+
+        account_changed_lastname = WebDriverWait(self.browser, 5).until(ec.presence_of_element_located((By.ID, "firstname))).text
+
+        assert account_former_lastname != account_changed_lastname
+
+        
+        
