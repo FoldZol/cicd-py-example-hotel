@@ -189,7 +189,7 @@ class TestHootel(object):
         save_button = WebDriverWait(self.browser, 5).until(ec.element_to_be_clickable((By.ID, "submit")))
         save_button.click()
 
-        account_changed_lastname = WebDriverWait(self.browser, 5).until(ec.presence_of_element_located((By.ID, "firstname))).text
+        account_changed_lastname = WebDriverWait(self.browser, 5).until(ec.presence_of_element_located((By.ID, "firstname"))).text
 
         assert account_former_lastname != account_changed_lastname
 
