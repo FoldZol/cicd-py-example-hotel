@@ -35,6 +35,7 @@ class TestHootel(object):
             ec.element_to_be_clickable((By.XPATH, '//a[@class="nav-link"]')))
         login_btn.click()
 
+        time.sleep(0.5)
         email_input = self.browser.find_element(By.ID, 'email')
         email_input.send_keys(email)
 
@@ -81,6 +82,7 @@ class TestHootel(object):
         login_button = WebDriverWait(self.browser, 5).until(
             ec.element_to_be_clickable((By.XPATH, '//a[@class="nav-link"]')))
         login_button.click()
+        time.sleep(0.5)
 
         email_input = self.browser.find_element(By.ID, 'email')
         email_input.send_keys('progmtest4@proton.me')
@@ -109,6 +111,7 @@ class TestHootel(object):
         login_button = WebDriverWait(self.browser, 5).until(
             ec.element_to_be_clickable((By.XPATH, '//a[@class="nav-link"]')))
         login_button.click()
+        time.sleep(0.5)
 
         email_input = self.browser.find_element(By.ID, 'email')
         email_input.send_keys('progmtest4@proton.me')
@@ -139,6 +142,7 @@ class TestHootel(object):
         login_button = WebDriverWait(self.browser, 5).until(
             ec.element_to_be_clickable((By.XPATH, '//a[@class="nav-link"]')))
         login_button.click()
+        time.sleep(0.5)
 
         email_input = self.browser.find_element(By.ID, 'email')
         email_input.send_keys('progmtest4@proton.me')
@@ -164,7 +168,8 @@ class TestHootel(object):
         login_button = WebDriverWait(self.browser, 5).until(
             ec.element_to_be_clickable((By.XPATH, '//a[@class="nav-link"]')))
         login_button.click()
-
+        time.sleep(0.5)
+        
         email_input = self.browser.find_element(By.ID, 'email')
         email_input.send_keys('progmtest4@proton.me')
 
@@ -178,18 +183,22 @@ class TestHootel(object):
         account_button = WebDriverWait(self.browser, 5).until(ec.element_to_be_clickable((By.ID, "profile")))
         account_button.click()
 
-        account_former_lastname = WebDriverWait(self.browser, 5).until(ec.presence_of_element_located((By.XPATH, "//input[@id = 'firstname']"))).text
-                                                                                                       
+        time.sleep(0.5)
+        account_former_lastname = self.browser.find_elements(By.TAG_NAME, "input")[1].get_attribute("placeholder")
+
         edit_account_button = self.browser.find_element(By.XPATH, "//button[@name = 'submit']")
         edit_account_button.click()
 
+        time.sleep(0.5)
         lastname_input = self.browser.find_element(By.ID, "firstname")
+        lastname_input.clear()
         lastname_input.send_keys("ProgMtest4")
 
-        save_button = WebDriverWait(self.browser, 5).until(ec.element_to_be_clickable((By.ID, "submit")))
+        save_button = WebDriverWait(self.browser, 5).until(ec.element_to_be_clickable((By.XPATH, "//button[@type = 'submit']")))
         save_button.click()
 
-        account_changed_lastname = WebDriverWait(self.browser, 5).until(ec.presence_of_element_located((By.XPATH, "//input[@id = 'firstname']"))).text
+        time.sleep(0.5)
+        account_changed_lastname = self.browser.find_elements(By.TAG_NAME, "input")[1].get_attribute("placeholder")
 
         assert account_former_lastname != account_changed_lastname
 
